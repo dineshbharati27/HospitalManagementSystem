@@ -94,26 +94,31 @@ const Patient = () => {
             <h2 className="text-xl font-semibold">Patient List</h2>
           </div>
 
-          <div className="flex justify-between items-center mb-4">
+          {/* Search and Add New - Responsive */}
+          <div className="flex sm:flex-col justify-between items-center mb-4 gap-4">
             <input
               type="text"
               placeholder="Search"
-              className="border rounded-lg p-2 w-1/3 shadow-sm"
+              className="border rounded-lg p-2 w-1/3 sm:w-full shadow-sm"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <button className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-lg shadow-md" onClick={handleAddNew}>
+            <button
+              className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-lg shadow-md sm:w-full"
+              onClick={handleAddNew}
+            >
               Add New +
             </button>
           </div>
 
+          {/* Form */}
           {showForm && (
             <form onSubmit={handleSubmit} className="w-full mb-4 p-6">
-              <div className="flex flex-wrap space-x-4">
+              <div className="flex flex-wrap sm:flex-col gap-4">
                 <input
                   type="text"
                   placeholder="Patient Name"
-                  className="flex-1 border p-3 rounded-lg shadow-sm"
+                  className="border p-3 rounded-lg shadow-sm flex-1 sm:w-full"
                   value={newPatient.name}
                   onChange={(e) => setNewPatient({ ...newPatient, name: e.target.value })}
                   required
@@ -121,13 +126,13 @@ const Patient = () => {
                 <input
                   type="number"
                   placeholder="Age"
-                  className="flex-1 border p-3 rounded-lg shadow-sm"
+                  className="border p-3 rounded-lg shadow-sm flex-1 sm:w-full"
                   value={newPatient.age}
                   onChange={(e) => setNewPatient({ ...newPatient, age: e.target.value })}
                   required
                 />
                 <select
-                  className="flex-1 border p-3 rounded-lg shadow-sm"
+                  className="border p-3 rounded-lg shadow-sm flex-1 sm:w-full"
                   value={newPatient.gender}
                   onChange={(e) => setNewPatient({ ...newPatient, gender: e.target.value })}
                 >
@@ -137,7 +142,7 @@ const Patient = () => {
                 </select>
                 <input
                   type="datetime-local"
-                  className="flex-1 border p-3 rounded-lg shadow-sm"
+                  className="border p-3 rounded-lg shadow-sm flex-1 sm:w-full"
                   value={newPatient.appointment}
                   onChange={(e) => setNewPatient({ ...newPatient, appointment: e.target.value })}
                   required
@@ -145,51 +150,61 @@ const Patient = () => {
                 <input
                   type="text"
                   placeholder="Doctor Assigned"
-                  className="flex-1 border p-3 rounded-lg shadow-sm"
+                  className="border p-3 rounded-lg shadow-sm flex-1 sm:w-full"
                   value={newPatient.doctorAssigned}
                   onChange={(e) => setNewPatient({ ...newPatient, doctorAssigned: e.target.value })}
                   required
                 />
-                <button type="submit" className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-lg shadow-md">Save</button>
-                <button onClick={() => setShowForm(false)} className="bg-red-400 hover:bg-red-500 text-white p-3 rounded-lg shadow-md">Cancel</button>
+                <div className="flex sm:flex-col gap-4 w-full">
+                  <button type="submit" className="bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-lg shadow-md sm:w-full">
+                    Save
+                  </button>
+                  <button onClick={() => setShowForm(false)} className="bg-red-400 hover:bg-red-500 text-white p-3 rounded-lg shadow-md sm:w-full">
+                    Cancel
+                  </button>
+                </div>
               </div>
             </form>
           )}
 
-          <table className="w-full border-collapse shadow-lg rounded-lg overflow-hidden">
-            <thead>
-              <tr className="bg-teal-500 text-white">
-                <th className="p-4 text-left">ID</th>
-                <th className="p-4 text-left">Patient Name</th>
-                <th className="p-4 text-left">Age</th>
-                <th className="p-4 text-left">Gender</th>
-                <th className="p-4 text-left">Appointment</th>
-                <th className="p-4 text-left">Doctor Assigned</th>
-              </tr>
-            </thead>
-            
-            <tbody>
-              {paginatedPatients.length > 0 ? (
-                paginatedPatients.map((patient, index) => (
-                  <tr key={patient.id} className="border-b border-gray-300 hover:bg-gray-100 transition">
-                    <td className="p-4">{patient.id}</td>
-                    <td className="p-4 font-medium">{patient.name}</td>
-                    <td className="p-4">{patient.age}</td>
-                    <td className="p-4">{patient.gender}</td>
-                    <td className="p-4">{patient.appointment.replace("T", " ")}</td>
-                    <td className="p-4">{patient.doctorAssigned}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="6" className="text-center p-6 text-gray-500">
-                    No results found.
-                  </td>
+          {/* Table - Responsive */}
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse shadow-lg rounded-lg overflow-hidden">
+              <thead>
+                <tr className="bg-teal-500 text-white">
+                  <th className="p-4 text-left">ID</th>
+                  <th className="p-4 text-left">Patient Name</th>
+                  <th className="p-4 text-left">Age</th>
+                  <th className="p-4 text-left">Gender</th>
+                  <th className="p-4 text-left">Appointment</th>
+                  <th className="p-4 text-left">Doctor Assigned</th>
                 </tr>
-              )}
-            </tbody> 
-          </table>
+              </thead>
+              
+              <tbody>
+                {paginatedPatients.length > 0 ? (
+                  paginatedPatients.map((patient, index) => (
+                    <tr key={patient.id} className="border-b border-gray-300 hover:bg-gray-100 transition">
+                      <td className="p-4">{patient.id}</td>
+                      <td className="p-4 font-medium">{patient.name}</td>
+                      <td className="p-4">{patient.age}</td>
+                      <td className="p-4">{patient.gender}</td>
+                      <td className="p-4">{patient.appointment.replace("T", " ")}</td>
+                      <td className="p-4">{patient.doctorAssigned}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="6" className="text-center p-6 text-gray-500">
+                      No results found.
+                    </td>
+                  </tr>
+                )}
+              </tbody> 
+            </table>
+          </div>
 
+          {/* Pagination */}
           <div className="flex items-center justify-end gap-2 mt-6">
             <button
               disabled={currentPage === 1}
@@ -228,6 +243,7 @@ const Patient = () => {
           </div>
         </div>
       </div>
+
     </div>
   );
 };
