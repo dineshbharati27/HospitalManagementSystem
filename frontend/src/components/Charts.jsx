@@ -10,8 +10,9 @@ const data = [
 
 const Charts = () => {
   return (
-    <div className="w-full h-screen p-6 bg-white">
-      <h2 className="text-3xl font-bold mb-4 text-gray-900">Hospital Statistics</h2>
+    <div className="w-full h-screen p-6 bg-white flex flex-col justify-center items-center">
+      {/* Title Centered */}
+      <h2 className="text-3xl font-bold mb-4 text-gray-900 text-center">Hospital Statistics</h2>
       <ResponsiveContainer width="100%" height="80%">
         <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#E6F4F1" />
@@ -28,3 +29,4 @@ const Charts = () => {
 };
 
 export default Charts;
+

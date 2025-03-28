@@ -2,14 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarCheck, faUserPlus, faProcedures, faDollarSign, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
-
-const iconMap = {
-  faCalendarCheck,
-  faUserPlus,
-  faProcedures,
-  faDollarSign,
-};
-
 const DashboardCards = () => {
 
   const [data, setData] = useState({
@@ -19,8 +11,7 @@ const DashboardCards = () => {
     earnings: "$ 0",
   });
 
-
-  useEffect(()=>{
+  useEffect(() => {
     fetch("http://localhost:5000/api/dashboardcards")
       .then((res) => res.json())
       .then((data) => setData(data))
@@ -35,10 +26,11 @@ const DashboardCards = () => {
   ];
 
   return (
-    <div className="bg-blue-5 flex justify-center items-center">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 p-4">
+    <div className="flex justify-center items-center w-full">
+      {/* ✅ Fix: Responsive Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-full p-4">
         {cards.map((card, index) => (
-          <div key={index} className="bg-white rounded-lg shadow p-6 w-68 mt-4 ml-6">
+          <div key={index} className="bg-white rounded-lg shadow p-6 w-full max-w-xs mx-auto">
             <div className="flex items-center mb-2">
               <FontAwesomeIcon icon={card.icon} className={`text-${card.color}-500 text-xl`} />
               <h2 className="ml-2 text-lg font-semibold">{card.title}</h2>
@@ -55,10 +47,11 @@ const DashboardCards = () => {
             </div>
           </div>
         ))}
-        
       </div>
     </div>
   );
 };
 
 export default DashboardCards;
+
+

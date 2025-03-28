@@ -71,6 +71,6 @@ app.use("/auth", authRoutes);
 app.use("/api/doctors", doctorRoutes);
 app.use("/api/medicines", medicineRoutes);
 app.use("/api/orders", orderRoutes);
-app.use("api/faqs", faqRoutes);
+app.use("/api/faqs", faqRoutes);
 
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
